@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0c1117" />
+    <title>SafeScan — Scan before you trust</title>
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/app.css" />
+    <style>.view{display:none}.view.active-view{display:block}.camera-modal{position:fixed;inset:0;z-index:20;background:rgba(4,8,12,.84);display:grid;place-items:center;padding:20px}.camera-modal.hidden{display:none}.camera-card{width:min(100%,520px);background:#121d26;border:1px solid #38515d;border-radius:13px;padding:20px;box-shadow:0 30px 100px rgba(0,0,0,.55)}.camera-card-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:17px}.camera-card h2{font-size:17px;margin:8px 0 0}.close-button{background:#1d2b35;color:#bdcbd5;border-radius:7px;width:30px;height:30px;font-size:22px;line-height:1}.camera-frame{aspect-ratio:4/3;background:#071016;border-radius:9px;overflow:hidden;position:relative}.camera-frame video{width:100%;height:100%;object-fit:cover}.camera-crosshair{position:absolute;inset:20% 18%;border:2px solid var(--cyan);border-radius:12px;box-shadow:0 0 0 999px rgba(3,10,12,.28)}.camera-card>p{color:#7e909e;font-size:11px;margin:13px 0 0}</style>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="#" data-view="home">
+          <span class="brand-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2.8 27 7v7.8c0 7.1-4.4 12-11 15.1C9.4 26.8 5 21.9 5 14.8V7l11-4.2Z" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="m10.5 15.6 3.5 3.4 7.3-7.7" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"/></svg></span>
+          <span>Safe<span>Scan</span></span>
+        </a>
+        <div class="sidebar-label">Workspace</div>
+        <nav class="side-nav">
+          <button class="nav-item active" data-view="home"><span class="nav-icon">⌂</span>Overview</button>
+          <button class="nav-item" data-view="history"><span class="nav-icon">◷</span>Scan history</button>
+        </nav>
+        <div class="sidebar-label">Manage</div>
+        <nav class="side-nav">
+          <button class="nav-item" data-view="settings"><span class="nav-icon">⚙</span>Settings</button>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="free-plan">
+            <div class="plan-top"><span>Free plan</span><span>3 / 5</span></div>
+            <div class="plan-bar"><span></span></div>
+            <p>Scans reset every day</p>
+          </div>
+          <div class="profile-row"><span class="avatar">SS</span><span><b>SafeScan user</b><small>Personal workspace</small></span><span class="dots">•••</span></div>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div class="mobile-brand"><span class="brand-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2.8 27 7v7.8c0 7.1-4.4 12-11 15.1C9.4 26.8 5 21.9 5 14.8V7l11-4.2Z" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="m10.5 15.6 3.5 3.4 7.3-7.7" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"/></svg></span>SafeScan</div>
+          <div class="topbar-actions"><button class="icon-button" title="Notifications">♧<i></i></button><button class="avatar small">SS</button></div>
+        </header>
+
+        <section id="home-view" class="view active-view">
+          <div class="page-heading">
+            <div><p class="eyebrow">THURSDAY, SEPTEMBER 10</p><h1>Scan before you trust<span class="heading-dot">.</span></h1><p class="subheading">Check links, QR codes, files, and documents before they get near your device.</p></div>
+            <div class="protection-pill"><span class="pulse"></span> Scanner ready</div>
+          </div>
+
+          <section class="scanner-card">
+            <div class="scanner-card-head"><div><span class="kicker">NEW SCAN</span><h2>What do you want to check?</h2></div><span class="shield-mini">✦</span></div>
+            <div class="scan-tabs" role="tablist">
+              <button class="scan-tab active" data-scan-mode="url"><span>↗</span> Link</button>
+              <button class="scan-tab" data-scan-mode="qr"><span>⌗</span> QR code</button>
+              <button class="scan-tab" data-scan-mode="file"><span>⌁</span> File or APK</button>
+            </div>
+            <div id="url-panel" class="scan-panel active-panel">
+              <div class="input-row"><span class="input-prefix">https://</span><input id="url-input" type="text" placeholder="Paste a link to scan" value="https://"></div>
+              <button id="scan-url-btn" class="primary-button"><span>Scan link</span><span class="button-arrow">→</span></button>
+              <p class="helper-text">We’ll check reputation, redirects, domain signals, and common phishing patterns.</p>
+            </div>
+            <div id="qr-panel" class="scan-panel">
+              <div class="qr-drop"><div class="qr-glyph">⌗</div><div><b>Scan a QR code</b><p>Use your camera or paste the decoded destination.</p></div><button id="open-camera" class="outline-button">Open camera</button></div>
+              <div class="input-row"><span class="input-prefix">URL</span><input id="qr-input" type="text" placeholder="https://example.com"></div>
+              <button id="scan-qr-btn" class="primary-button"><span>Analyze QR link</span><span class="button-arrow">→</span></button>
+              <p class="helper-text">SafeScan decodes first, then analyzes the extracted destination.</p>
+            </div>
+            <div id="file-panel" class="scan-panel">
+              <label class="file-drop" for="file-input"><span class="file-icon">＋</span><span><b>Drop a file here or browse</b><small>PDF, APK, ZIP, DOCX · up to 50 MB</small></span><input id="file-input" type="file" accept=".pdf,.apk,.zip,.doc,.docx,.txt,.exe,.msi"></label>
+              <div id="selected-file" class="selected-file hidden"></div>
+              <button id="scan-file-btn" class="primary-button" disabled><span>Scan file</span><span class="button-arrow">→</span></button>
+              <p class="helper-text">Files are fingerprinted locally in this MVP. Never upload anything you don’t trust.</p>
+            </div>
+          </section>
+
+          <div id="result-area"></div>
+
+          <section class="section-row"><div><span class="kicker">RECENT ACTIVITY</span><h2>Latest scans</h2></div><button class="text-button" data-view="history">View history <span>→</span></button></section>
+          <section id="recent-scans" class="recent-grid"></section>
+          <section class="trust-note"><span class="note-icon">i</span><div><b>SafeScan is a pre-trust scanner, not an antivirus.</b><p>A low-risk result means we didn’t find strong signals in this scan. Stay cautious with unexpected messages and downloads.</p></div></section>
+        </section>
+
+        <section id="history-view" class="view">
+          <div class="page-heading compact"><div><p class="eyebrow">YOUR ACTIVITY</p><h1>Scan history<span class="heading-dot">.</span></h1><p class="subheading">A private record of the things you checked.</p></div></div>
+          <div class="history-toolbar"><div class="search-box"><span>⌕</span><input id="history-search" placeholder="Search links and files"></div><button class="filter-button">All verdicts⌄</button></div>
+          <section id="history-list" class="history-list"></section>
+        </section>
+
+        <section id="settings-view" class="view">
+          <div class="page-heading compact"><div><p class="eyebrow">WORKSPACE</p><h1>Settings<span class="heading-dot">.</span></h1><p class="subheading">Keep your scanning preferences clear and under your control.</p></div></div>
+          <div class="settings-card"><div class="setting-row"><div><b>Delete scan history</b><p>Remove locally stored results from this browser.</p></div><button id="clear-history" class="outline-button">Delete history</button></div><div class="setting-row"><div><b>Third-party sharing</b><p>External reputation providers are not connected in this MVP. Your file hash stays in your browser until you submit a scan.</p></div><span class="setting-status">Not connected</span></div><div class="setting-row"><div><b>About SafeScan</b><p>Scan before you open that link, install that APK, scan that QR, or trust that document.</p></div><span class="version">MVP v0.1</span></div></div>
+        </section>
+      </main>
+    </div>
+    <div id="camera-modal" class="camera-modal hidden" aria-hidden="true">
+      <div class="camera-card">
+        <div class="camera-card-head"><div><span class="kicker">QR SCANNER</span><h2>Point your camera at a code</h2></div><button id="close-camera" class="close-button" aria-label="Close camera">×</button></div>
+        <div class="camera-frame"><video id="camera-video" autoplay playsinline></video><div class="camera-crosshair"></div></div>
+        <p id="camera-status">Looking for a QR code…</p>
+      </div>
+    </div>
+    <div id="toast" class="toast"></div>
+    <script src="/app.js"></script>
+  </body>
+</html>
