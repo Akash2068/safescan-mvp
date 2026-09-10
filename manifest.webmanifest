@@ -1,0 +1,10 @@
+{
+  "name": "SafeScan",
+  "short_name": "SafeScan",
+  "description": "Scan links, QR codes, files, and documents before you trust them.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0c1117",
+  "theme_color": "#0c1117",
+  "icons": []
+}
